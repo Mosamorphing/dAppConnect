@@ -109,15 +109,15 @@ const modalContentStyle: React.CSSProperties = {
   color: '#000000',
 };
 
-const closeButtonStyle: React.CSSProperties = {
-  position: 'absolute',
-  top: '10px',
-  right: '10px',
-  background: 'none',
-  border: 'none',
-  fontSize: '1.5em',
-  cursor: 'pointer',
-};
+// const closeButtonStyle: React.CSSProperties = {
+//   position: 'absolute',
+//   top: '10px',
+//   right: '10px',
+//   background: 'none',
+//   border: 'none',
+//   fontSize: '1.5em',
+//   cursor: 'pointer',
+// };
 
 
 const walletsContainerStyle: React.CSSProperties = {
@@ -126,16 +126,16 @@ const walletsContainerStyle: React.CSSProperties = {
   gap: '10px',
 };
 
-const walletButtonStyle: React.CSSProperties = {
-  width: '100%',
-  padding: '10px',
-  borderRadius: '8px',
-  border: '1px solid #000',
-  backgroundColor: '#fff',
-  color: '#000',
-  cursor: 'pointer',
-  transition: 'background-color 0.25s, border-color 0.25s',
-};
+// const walletButtonStyle: React.CSSProperties = {
+//   width: '100%',
+//   padding: '10px',
+//   borderRadius: '8px',
+//   border: '1px solid #000',
+//   backgroundColor: '#fff',
+//   color: '#000',
+//   cursor: 'pointer',
+//   transition: 'background-color 0.25s, border-color 0.25s',
+// };
 
 const logoStyle: React.CSSProperties = {
   width: '24px',

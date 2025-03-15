@@ -75,16 +75,16 @@ const headerTextStyle2: React.CSSProperties = {
   color: '#5623bd', // Ensure text color is set
 };
 
-const signInButtonStyle: React.CSSProperties = {
-  padding: '10px 20px',
-  borderRadius: '8px',
-  border: '1px solid #000000',
-  backgroundColor: 'white',
-  color: '#000000',
-  cursor: 'pointer',
-  fontSize: '16px',
-  transition: 'background-color 0.25s',
-};
+// const signInButtonStyle: React.CSSProperties = {
+//   padding: '10px 20px',
+//   borderRadius: '8px',
+//   border: '1px solid #000000',
+//   backgroundColor: 'white',
+//   color: '#000000',
+//   cursor: 'pointer',
+//   fontSize: '16px',
+//   transition: 'background-color 0.25s',
+// };
 
 // signInButtonStyle[':hover'] = {
 //   backgroundColor: '#f0f0f0',
