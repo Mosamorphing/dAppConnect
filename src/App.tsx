@@ -4,6 +4,7 @@ import { config } from './config'
 import { Account } from './account'
 import { WalletOptions } from './wallet-options'
 import { useState } from 'react'
+import './index.css';
 // import styled from 'styled-components';
 
 const queryClient = new QueryClient()
@@ -24,9 +25,9 @@ function ConnectWallet() {
         Get best practices on the use of multisignature wallets and avoid common pitfalls
       </div>
 
-      {/* Sign In Button */}
-      {!showWalletOptions ? (
-        <button onClick={() => setShowWalletOptions(true)} style={signInButtonStyle}>
+   Sign In Button
+   {!showWalletOptions ? (
+        <button onClick={() => setShowWalletOptions(true)} className="sign-in-button">
           Sign In
         </button>
       ) : (
@@ -58,27 +59,28 @@ const containerStyle: React.CSSProperties = {
 };
 
 const headerTextStyle: React.CSSProperties = {
-  fontSize: '92px', // Larger text size
+  fontSize: '70px', // Larger text size
   wordSpacing: '-5px', // Larger spacing between words
   lineHeight: '1.1', // Larger line height
   fontWeight: 'bold', // Bold text
-  color: '#000000', // Black text
+  color: '#7f46ef', // Black text
   marginBottom: '20px', // Spacing below the text
 };
 
 const headerTextStyle2: React.CSSProperties = {
   wordSpacing: '-1px', // Larger spacing between words
   fontWeight: 'normal',
-  fontSize: '30px', // Text size
-  color: '#525050', // Ensure text color is set
+  fontSize: '22px', // Text size
+  marginBottom: '-20px', // Spacing below the text
+  color: '#5623bd', // Ensure text color is set
 };
 
 const signInButtonStyle: React.CSSProperties = {
   padding: '10px 20px',
   borderRadius: '8px',
-  border: '1px solid #ffffff',
-  backgroundColor: '#FF306E',
-  color: '#fdfdfd',
+  border: '1px solid #000000',
+  backgroundColor: 'white',
+  color: '#000000',
   cursor: 'pointer',
   fontSize: '16px',
   transition: 'background-color 0.25s',

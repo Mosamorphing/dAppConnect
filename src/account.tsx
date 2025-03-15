@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { useAccount, useDisconnect, useEnsAvatar, useEnsName, useBalance } from 'wagmi';
+import { useAccount, useDisconnect, useEnsAvatar, useEnsName, useBalance, useSwitchChain } from 'wagmi';
+import { config } from './config';
+import './index.css'; // Ensure you import your CSS file
 
 export function Account() {
   const { address } = useAccount();
@@ -7,6 +9,7 @@ export function Account() {
   const { data: ensName } = useEnsName({ address });
   const { data: ensAvatar } = useEnsAvatar({ name: ensName! });
   const { data: balance } = useBalance({ address });
+  const { chains, switchChain, chain } = useSwitchChain({ config });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const copyAddress = () => {
@@ -14,6 +17,15 @@ export function Account() {
       navigator.clipboard.writeText(address);
       alert('Address copied to clipboard!');
     }
+  };
+
+  const formatAddress = (address: string) => {
+    return `${address.slice(0, 6)}...${address.slice(-4)}`;
+  };
+
+  const formatBalanceInDollars = (balance: number) => {
+    const dollarValue = balance * 2000; // Assuming 1 ETH = $2000, replace with actual conversion rate
+    return dollarValue.toFixed(2);
   };
 
   return (
@@ -27,25 +39,25 @@ export function Account() {
       <div style={summaryStyle} onClick={() => setIsModalOpen(true)}>
         {ensAvatar && <img alt="ENS Avatar" src={ensAvatar} style={avatarStyle} />}
         <div style={addressStyle}>
-          {ensName ? `${ensName}` : `${address?.slice(0, 6)}...${address?.slice(-4)}`}
+          {ensName ? `${ensName}` : formatAddress(address!)}
         </div>
         <div style={balanceStyle}>
-          {balance ? `${parseFloat(balance.formatted).toFixed(4)} ${balance.symbol}` : 'Loading...'}
+          {balance ? `$${formatBalanceInDollars(parseFloat(balance.formatted))}` : 'Loading...'}
         </div>
       </div>
 
       {/* Modal */}
       {isModalOpen && (
-        <div style={modalOverlayStyle}>
-          <div style={modalContentStyle}>
-            <h2 style={{ color: '#000000', marginBottom: '20px' }}>Account Details</h2>
-            <button style={closeButtonStyle} onClick={() => setIsModalOpen(false)}>
+        <div className="modal-overlay">
+          <div className="modal" style={modalContentStyle}>
+            <h2 style={{ color: '#000000', marginBottom: '20px' }}>Wallet Details</h2>
+            <button className="close-button" onClick={() => setIsModalOpen(false)}>
               &times;
             </button>
 
             {/* Address */}
             <div style={detailStyle}>
-              <strong>Address:</strong> {address}
+              <strong>Address:</strong> {formatAddress(address!)}
               <button onClick={copyAddress} style={copyButtonStyle}>
                 📋 Copy
               </button>
@@ -53,6 +65,25 @@ export function Account() {
             {/* Balance */}
             <div style={detailStyle}>
               <strong>Balance:</strong> {balance?.formatted} {balance?.symbol}
+            </div>
+            {/* Value in Dollars */}
+            <div style={detailStyle}>
+              <strong>Value:</strong> ${balance ? formatBalanceInDollars(parseFloat(balance.formatted)) : 'Loading...'}
+            </div>
+            {/* Network Switch */}
+            <div style={detailStyle}>
+              <strong>Network:</strong>
+              <select
+                value={chain?.id}
+                onChange={(e) => switchChain({ chainId: Number(e.target.value) })}
+                style={networkSelectStyle}
+              >
+                {chains.map((chain) => (
+                  <option key={chain.id} value={chain.id}>
+                    {chain.name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
@@ -119,16 +150,6 @@ const modalContentStyle: React.CSSProperties = {
   color: '#000000',
 };
 
-const closeButtonStyle: React.CSSProperties = {
-  position: 'absolute',
-  top: '10px',
-  right: '10px',
-  background: 'none',
-  border: 'none',
-  fontSize: '1.5em',
-  cursor: 'pointer',
-};
-
 const detailStyle: React.CSSProperties = {
   margin: '10px 0',
   fontSize: '14px',
@@ -158,6 +179,13 @@ const disconnectButtonStyle: React.CSSProperties = {
   zIndex: 1001,
 };
 
-// disconnectButtonStyle[':hover'] = {
-//   backgroundColor: '#f0f0f0',
-// };
+const networkSelectStyle: React.CSSProperties = {
+  marginLeft: '10px',
+  padding: '5px',
+  borderRadius: '4px',
+  border: '1px solid #000',
+  backgroundColor: '#fff',
+  color: '#000', // Ensure text color is black
+  cursor: 'pointer',
+  fontSize: '14px',
+};

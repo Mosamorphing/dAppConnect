@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Connector, useConnect } from 'wagmi';
+import './index.css';
 
 // Wallet logos mapping
 const WALLET_LOGOS: { [key: string]: string } = {
@@ -19,16 +20,18 @@ export function WalletOptions() {
   return (
     <>
       {/* Button to open the modal */}
-      <button onClick={() => setIsModalOpen(true)}>Sign In</button>
+      <button onClick={() => setIsModalOpen(true)} className="sign-in-button">
+        Sign In
+      </button>
 
       {/* Modal */}
       {isModalOpen && (
         <div style={modalOverlayStyle}>
-          <div style={modalContentStyle}>
+          <div style={modalContentStyle} className="modal">
             <h2>Connect a wallet</h2>
-            <button style={closeButtonStyle} onClick={() => setIsModalOpen(false)}>
+            <button className="close-button" onClick={() => setIsModalOpen(false)}>
               &times;
-            </button>
+</button>
             <div style={walletsContainerStyle}>
               {connectors.map((connector) => (
                 <WalletOption
@@ -41,6 +44,11 @@ export function WalletOptions() {
                   walletLogo={WALLET_LOGOS[connector.name]} // Pass the wallet logo
                 />
               ))}
+            </div>
+            <div style={getWalletLinkStyle}>
+              <a href="https://metamask.io/en" target="_blank" rel="noopener noreferrer">
+                Don't have a wallet? Get started here
+              </a>
             </div>
           </div>
         </div>
@@ -68,7 +76,7 @@ function WalletOption({
   }, [connector]);
 
   return (
-    <button style={walletButtonStyle} disabled={!ready} onClick={onClick}>
+    <button className="wallet-button" disabled={!ready} onClick={onClick}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center' }}>
         {walletLogo && <img src={walletLogo} alt={`${connector.name} logo`} style={logoStyle} />}
         {connector.name}
@@ -111,6 +119,7 @@ const closeButtonStyle: React.CSSProperties = {
   cursor: 'pointer',
 };
 
+
 const walletsContainerStyle: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
@@ -132,6 +141,12 @@ const logoStyle: React.CSSProperties = {
   width: '24px',
   height: '24px',
   borderRadius: '50%',
+};
+
+const getWalletLinkStyle: React.CSSProperties = {
+  marginTop: '20px',
+  textAlign: 'center',
+  fontSize: '14px',
 };
 
 // walletButtonStyle[':hover'] = {
