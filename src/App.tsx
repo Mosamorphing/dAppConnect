@@ -19,7 +19,7 @@ function ConnectWallet() {
     <div style={containerStyle}>
       {/* Large Text */}
       <div style={headerTextStyle}>
-        For Individuals & Enterprises <br />using Multisignature Wallets
+        For Individuals and Enterprises <br />using Multisignature Wallets
       </div>
       <div style={headerTextStyle2}>
         Get best practices on the use of multisignature wallets and avoid common pitfalls
@@ -60,7 +60,7 @@ const containerStyle: React.CSSProperties = {
 
 const headerTextStyle: React.CSSProperties = {
   fontSize: '70px', // Larger text size
-  wordSpacing: '-5px', // Larger spacing between words
+  wordSpacing: '-2px', // Larger spacing between words
   lineHeight: '1.1', // Larger line height
   fontWeight: 'bold', // Bold text
   color: '#7f46ef', // Black text
